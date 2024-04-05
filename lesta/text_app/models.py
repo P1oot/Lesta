@@ -18,3 +18,14 @@ class File(models.Model):
     class Meta:
         verbose_name = 'Файл'
         verbose_name_pural = 'Файлы'
+
+
+class Words(models.Model):
+    word = models.TextField(
+        verbose_name='Слово',
+        max_length=20,
+    )
+    tf = models.IntegerField(
+        verbose_name='Частота слова',
+        default=0,
+    )
