@@ -7,10 +7,21 @@ class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
         fields = (
-            'id', 'file', 'name', 'upload_at', 'processed', 'words_list'
+            'id',
+            'file',
+            'name',
+            'upload_at',
+            'processed',
+            'quantity',
+            'words_list'
         )
         read_only_fields = (
-            'id', 'name', 'upload_at', 'processed', 'words_list'
+            'id',
+            'name',
+            'upload_at',
+            'processed',
+            'quantity',
+            'words_list'
         )
 
     def validate(self, data):

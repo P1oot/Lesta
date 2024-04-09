@@ -17,6 +17,10 @@ class File(models.Model):
         verbose_name='Статус загрузки',
         default=False,
     )
+    quantity = models.IntegerField(
+        verbose_name='Количество слов',
+        null=True,
+    )
     words_list = models.TextField(
         verbose_name='50 наиболее частых слов',
     )
