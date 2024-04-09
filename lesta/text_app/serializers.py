@@ -1,20 +1,23 @@
 from rest_framework import serializers
-from .models import File, Words
+from .models import File
+from pathlib import Path
 
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ('file', 'processed',)
-        read_only_fields = ('processed',)
+        fields = (
+            'id', 'file', 'name', 'upload_at', 'processed', 'words_list'
+        )
+        read_only_fields = (
+            'id', 'name', 'upload_at', 'processed', 'words_list'
+        )
 
-
-class WordsSerializer(serializers.ModelSerializer):
-    idf = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Words
-        fields = ('word', 'quantity', 'tf')
-
-    def get_idf(self, obj):
-        pass
+    def validate(self, data):
+        file = self.initial_data.get('file')
+        suffix = Path(file.name).suffix
+        if suffix != '.txt':
+            raise serializers.ValidationError({
+                'file': 'Используйте расширение .txt'
+            })
+        return data
