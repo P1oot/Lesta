@@ -3,7 +3,7 @@ from rest_framework.routers import SimpleRouter
 from .views import FileViewSet
 
 router = SimpleRouter()
-router.register('upload', FileViewSet)
+router.register('api/files', FileViewSet)
 
 urlpatterns = [
     path('', include(router.urls))
