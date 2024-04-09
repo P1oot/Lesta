@@ -28,4 +28,5 @@ def file_processing(id):
     # sleep(3)
     curent_file.quantity = words_q
     curent_file.words_list = fdist
+    curent_file.processed = True
     curent_file.save()
