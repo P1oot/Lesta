@@ -17,6 +17,19 @@ class File(models.Model):
         verbose_name='Статус загрузки',
         default=False,
     )
+
+    class Meta:
+        verbose_name = 'Файл'
+        verbose_name_plural = 'Файлы'
+
+
+class Words(models.Model):
+    file = models.ForeignKey(
+        File,
+        on_delete=models.CASCADE,
+        related_name='words',
+        verbose_name='Файл',
+    )
     quantity = models.IntegerField(
         verbose_name='Количество слов',
         null=True,
@@ -26,5 +39,5 @@ class File(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Файл'
-        verbose_name_plural = 'Файлы'
+        verbose_name = 'Слова'
+        verbose_name_plural = 'Слова'

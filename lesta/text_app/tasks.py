@@ -1,9 +1,9 @@
 # from lesta.celery import app
-from .models import File
+from .models import File, Words
 from django.shortcuts import get_object_or_404
 import string
 import nltk
-from time import sleep
+# from time import sleep
 
 nltk.download('punkt')
 
@@ -26,7 +26,10 @@ def file_processing(id):
         c = c + (tf, )
         words_tuple_list += c
     # sleep(3)
-    curent_file.quantity = words_q
-    curent_file.words_list = fdist
+    Words.objects.create(
+        file=curent_file,
+        quantity=words_q,
+        words_list=words_tuple_list
+    )
     curent_file.processed = True
     curent_file.save()

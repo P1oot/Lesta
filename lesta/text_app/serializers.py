@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import File
+from .models import File, Words
 from pathlib import Path
 
 
-class FileSerializer(serializers.ModelSerializer):
+class FileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
         fields = (
@@ -12,16 +12,12 @@ class FileSerializer(serializers.ModelSerializer):
             'name',
             'upload_at',
             'processed',
-            'quantity',
-            'words_list'
         )
         read_only_fields = (
             'id',
             'name',
             'upload_at',
             'processed',
-            'quantity',
-            'words_list'
         )
 
     def validate(self, data):
@@ -32,3 +28,40 @@ class FileSerializer(serializers.ModelSerializer):
                 'file': 'Используйте расширение .txt'
             })
         return data
+
+
+class FileListSerializer(serializers.ModelSerializer):
+    quantity = serializers.SerializerMethodField()
+
+    class Meta:
+        model = File
+        fields = (
+            'id',
+            'name',
+            'upload_at',
+            'quantity',
+            'processed',
+        )
+
+    def get_quantity(self, file):
+        qs = file.words.values('quantity')
+        return list(qs)[0]['quantity']
+
+
+class WordsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Words
+        fields = ('quantity', 'words_list', )
+
+
+class FileRetrieveSerializer(serializers.ModelSerializer):
+    words = WordsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = File
+        fields = (
+            'name',
+            'upload_at',
+            'words',
+            'processed',
+        )
