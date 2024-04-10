@@ -1,3 +1,4 @@
 Django==4.2.11
 djangorestframework==3.15.1
 nltk==3.8.1
+requests==2.31.0
