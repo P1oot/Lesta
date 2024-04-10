@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+  Загрузка файла
+{% endblock %}
+{% block heading %}
+  Загрузите файл
+{% endblock %}
+{% block content %}
+  <form method="post" action="{% url 'text_app:upload_file' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+    <h3 style="margin-bottom: 50px">Загрузите файл в формате .txt</h3>
+  {{ form.as_p }}
+  {% if warning %}
+    <div>
+      <p>Упс! Что-то пошло не так.</p>
+      <p>Попробуйте загрузить другой файл.</p>
+    </div>
+  {% endif %}
+  <div style="margin: 50px"class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-light">
+      Загрузить
+    </button>
+  </div>
+{% endblock %}

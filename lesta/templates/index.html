@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <title>LestaGames</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% load cache %}
+{% block title %}
+  Lesta Games
+{% endblock %}
+{% block heading %}
+  Ранее загруженные файлы
+{% endblock %}
+{% block content %}
+  {% if files %}
+    <table>
+      <tbody>
+        <tr>
+          <td width="600">
+            <h5>Файл</h5>
+          </td>
+          <td width="250">
+            <h5>Дата добаления</h5>
+          </td>
+          <td width="200">
+            <h5>Количесво слов</h5>
+          </td>
+        </tr>
+        {% for file in files %}
+          <tr>
+            <td>{{ file.name }}</td>
+            <td>{{ file.upload_at }}</td>
+            <td>{{ file.words.all.0.quantity }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3 class="table-style">
+      Загрузите первый файл!
+    </h3>
+  {% endif %}
+{% endblock %}

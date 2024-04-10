@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Подсчет количества и частоты слов">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+</head>
+<body class="wrapper">
+
+  <header class="">
+    <div class="container head-container">
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 class="table-style" style="margin: 50px;">
+      <b></b>
+      <span class="table-title">{% block heading %}{% endblock %}</span>
+      <b></b>
+    </h2>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+</body>
+</html>
