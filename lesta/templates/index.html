@@ -11,7 +11,7 @@
     <table>
       <tbody>
         <tr>
-          <td width="600">
+          <td width="500">
             <h5>Файл</h5>
           </td>
           <td width="250">
@@ -20,12 +20,16 @@
           <td width="200">
             <h5>Количесво слов</h5>
           </td>
+          <td width="100">
+            <h5>Обработано</h5>
+          </td>
         </tr>
         {% for file in files %}
           <tr>
             <td>{{ file.name }}</td>
             <td>{{ file.upload_at }}</td>
             <td>{{ file.words.all.0.quantity }}</td>
+            <td>{{ file.processed }}</td>
           </tr>
         {% endfor %}
       </tbody>
