@@ -7,6 +7,7 @@ from .views import (
     FileListRetrieveViewSet,
     index,
     upload_file,
+    file_words,
 )
 
 app_name = 'text_app'
@@ -18,7 +19,8 @@ router.register('files', FileListRetrieveViewSet, basename='files')
 urlpatterns = [
     path('api/', include(router.urls)),
     path('', index, name='index'),
-    path('upload/', upload_file, name='upload_file')
+    path('upload/', upload_file, name='upload_file'),
+    path('file/<int:file_id>', file_words, name='file_words'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

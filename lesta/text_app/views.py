@@ -7,6 +7,8 @@ from .tasks import file_processing
 from django.shortcuts import render, redirect
 from .forms import FileForm
 import requests
+from rest_framework.response import Response
+import json
 
 
 class FileUploadViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -21,7 +23,6 @@ class FileUploadViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 class FileListRetrieveViewSet(
     mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
     viewsets.GenericViewSet
 ):
     queryset = File.objects.all().order_by('-upload_at')
@@ -30,6 +31,13 @@ class FileListRetrieveViewSet(
         if self.action == 'retrieve':
             return FileRetrieveSerializer
         return FileListSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        words_list = json.loads(serializer.data['words'][0]['words_list'])
+        serializer.data['words'][0]['words_list'] = words_list
+        return Response(serializer.data)
 
 
 def index(request):
@@ -50,7 +58,6 @@ def upload_file(request):
         r = requests.post(
             'http://127.0.0.1:8000/api/upload/',
             files=[('file', file)],
-            # data={'file': file},
         )
         if r.status_code == 201:
             return redirect('text_app:index')
@@ -60,3 +67,15 @@ def upload_file(request):
                                               'warning': True})
     else:
         return render(request, template, {'form': form})
+
+
+def file_words(request, file_id):
+    template = 'file_words.html'
+    file_words_list_response = requests.get(
+        'http://127.0.0.1:8000/api/files/'+str(file_id),
+    )
+    file_words_list = file_words_list_response.json()
+    context = {
+        'file': file_words_list,
+    }
+    return render(request, template, context)

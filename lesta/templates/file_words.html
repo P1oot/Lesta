@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+  Частотный анализ слов
+{% endblock %}
+{% block heading %}
+  Частотный анализ слов
+{% endblock %}
+{% block content %}
+  <table>
+    <tbody>
+      <tr>
+        <td width="750">
+          <h5>{{ file.name }}</h5>
+        </td>
+        <td width="200">
+          <h5>Количесво слов:</h5>
+        </td>
+        <td width="100">
+          <h5>{{ file.words.0.quantity }}</h5>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <td width="450">
+          <h5>Слово</h5>
+        </td>
+        <td width="300">
+          <h5>Количесво встречь</h5>
+        </td>
+        <td width="300">
+          <h5>Частота слова в %</h5>
+        </td>
+      </tr>
+      {% for word in file.words.0.words_list %}
+        <tr>
+          <td>{{ word.0 }}</td>
+          <td>{{ word.1 }}</td>
+          <td>{{ word.2 }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
