@@ -33,6 +33,7 @@ class Words(models.Model):
     quantity = models.IntegerField(
         verbose_name='Количество слов',
         null=True,
+        default=0,
     )
     words_list = models.TextField(
         verbose_name='50 наиболее частых слов',
