@@ -43,15 +43,11 @@ class FileListSerializer(serializers.ModelSerializer):
             'processed',
         )
 
-    def get_quantity(self, file):
-        qs = file.words.values('quantity')
-        return list(qs)[0]['quantity']
-
 
 class WordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Words
-        fields = ('quantity', 'words_list', )
+        fields = ('words_list', )
 
 
 class FileRetrieveSerializer(serializers.ModelSerializer):
@@ -62,6 +58,7 @@ class FileRetrieveSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'upload_at',
+            'quantity',
             'words',
             'processed',
         )

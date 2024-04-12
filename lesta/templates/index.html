@@ -27,23 +27,29 @@
         {% for file in files %}
             <tr>
               <td>
-          <a href="{% url 'text_app:file_words' file.id %}">
-              {{ file.name }}
-          </a>
-          </td>
+                {% if file.processed %}
+                  <a href="{% url 'text_app:file_words' file.id %}">
+                    {{ file.name }}
+                  </a>
+                {% else %}
+                  {{ file.name }}
+                {% endif %}
+              </td>
               <td>{{ file.upload_at }}</td>
-              <td>{{ file.words.all.0.quantity }}</td>
+              <td>{{ file.quantity }}</td>
               <td>{{ file.processed }}</td>
             </tr>
         {% endfor %}
       </tbody>
     </table>
-    <div class="pagination-container">
+    <div>
       {% include 'paginator.html' %}
     </div>
   {% else %}
-    <h3 class="table-style">
-      Загрузите первый файл!
-    </h3>
+    <div class="pagination">
+      <h3 class="table-style">
+        Загрузите первый файл!
+      </h3>
+    </div>
   {% endif %}
 {% endblock %}

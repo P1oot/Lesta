@@ -13,6 +13,11 @@ class File(models.Model):
         verbose_name='Время загрузки',
         auto_now_add=True,
     )
+    quantity = models.IntegerField(
+        verbose_name='Количество слов',
+        null=True,
+        default=0,
+    )
     processed = models.BooleanField(
         verbose_name='Статус загрузки',
         default=False,
@@ -29,11 +34,6 @@ class Words(models.Model):
         on_delete=models.CASCADE,
         related_name='words',
         verbose_name='Файл',
-    )
-    quantity = models.IntegerField(
-        verbose_name='Количество слов',
-        null=True,
-        default=0,
     )
     words_list = models.TextField(
         verbose_name='50 наиболее частых слов',
