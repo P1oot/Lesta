@@ -2,9 +2,10 @@ from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import (
+from .views_api import (
     FileUploadViewSet,
-    FileListRetrieveViewSet,
+    FileListRetrieveViewSet,)
+from .views import (
     index,
     upload_file,
     file_words,
