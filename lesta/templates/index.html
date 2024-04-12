@@ -38,6 +38,9 @@
         {% endfor %}
       </tbody>
     </table>
+    <div class="pagination-container">
+      {% include 'paginator.html' %}
+    </div>
   {% else %}
     <h3 class="table-style">
       Загрузите первый файл!

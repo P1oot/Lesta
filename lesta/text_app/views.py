@@ -9,6 +9,7 @@ from .forms import FileForm
 import requests
 from rest_framework.response import Response
 import json
+from .func import make_paginator
 
 
 class FileUploadViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -43,8 +44,9 @@ class FileListRetrieveViewSet(
 def index(request):
     template = 'index.html'
     files_list = File.objects.all().order_by('-upload_at')
+    page_obj = make_paginator(request, files_list)
     context = {
-        'files': files_list,
+        'files': page_obj,
     }
     return render(request, template, context)
 
@@ -54,7 +56,6 @@ def upload_file(request):
     form = FileForm(request.POST or None, files=request.FILES or None)
     if request.method == 'POST':
         file = request.FILES['file']
-        print(type(file))
         r = requests.post(
             'http://127.0.0.1:8000/api/upload/',
             files=[('file', file)],

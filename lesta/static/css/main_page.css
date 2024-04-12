@@ -40,8 +40,16 @@ a{
   text-decoration: none;
   color: white;
 }
-.foot-container{
+.pagination{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+.page-link{
+  color: black;
+}
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #1e1e1e;
+  border-color: white;
 }
