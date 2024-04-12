@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
   {% if files %}
-    <table>
+    <table style="margin-bottom: 100px">
       <tbody>
         <tr>
           <td width="500">
@@ -25,12 +25,16 @@
           </td>
         </tr>
         {% for file in files %}
-          <tr>
-            <td>{{ file.name }}</td>
-            <td>{{ file.upload_at }}</td>
-            <td>{{ file.words.all.0.quantity }}</td>
-            <td>{{ file.processed }}</td>
-          </tr>
+            <tr>
+              <td>
+          <a href="{% url 'text_app:file_words' file.id %}">
+              {{ file.name }}
+          </a>
+          </td>
+              <td>{{ file.upload_at }}</td>
+              <td>{{ file.words.all.0.quantity }}</td>
+              <td>{{ file.processed }}</td>
+            </tr>
         {% endfor %}
       </tbody>
     </table>
