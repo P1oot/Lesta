@@ -24,18 +24,10 @@ services:
       - media_value:/app/lesta/media/
     ports:
       - '8000:8000'
-    environment:
-      DEBUG: "True"
-      CELERY_BROKER_URL: "redis://redis:6379/0"
-      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
-      DJANGO_DB: postgresql
-      POSTGRES_HOST: db
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_PORT: 5432
     depends_on:
       - db
+    env_file:
+      - ./.env
 
   nginx:
     restart: always
@@ -69,21 +61,13 @@ services:
     volumes:
       - static_value:/app/lesta/static/
       - media_value:/app/lesta/media/
-    environment:
-      DEBUG: "True"
-      CELERY_BROKER_URL: "redis://redis:6379/0"
-      CELERY_RESULT_BACKEND: "redis://redis:6379/0"
-      DJANGO_DB: postgresql
-      POSTGRES_HOST: db
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_PORT: 5432
     links:
       - redis
     depends_on:
       - web
       - redis
+    env_file:
+      - ./.env
 
 volumes:
   db_value:
