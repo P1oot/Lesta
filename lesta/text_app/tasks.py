@@ -5,6 +5,7 @@ import string
 import nltk
 import json
 from time import sleep
+from django.conf import settings
 
 
 @app.task
@@ -23,7 +24,8 @@ def file_processing(id):
         tf = round((t[1]/words_q*100), 3)
         d = [t[0], t[1], tf]
         words_dict_list.append(d)
-    sleep(3)
+    if settings.DELAY:
+        sleep(1)
     words_json = json.dumps(words_dict_list)
     Words.objects.create(
         file=curent_file,
