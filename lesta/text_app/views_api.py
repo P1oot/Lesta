@@ -14,8 +14,7 @@ class FileUploadViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
     def perform_create(self, serializer):
         serializer.save(name=self.request.data.get('file').name)
-        file_processing(serializer.data['id'])
-        # file_processing.delay(serializer.data['id'])
+        file_processing.delay(serializer.data['id'])
 
 
 class FileListRetrieveViewSet(

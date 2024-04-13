@@ -31,7 +31,6 @@ class FileUploadSerializer(serializers.ModelSerializer):
 
 
 class FileListSerializer(serializers.ModelSerializer):
-    quantity = serializers.SerializerMethodField()
 
     class Meta:
         model = File
